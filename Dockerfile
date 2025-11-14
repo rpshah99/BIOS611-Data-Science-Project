@@ -1,0 +1,8 @@
+RUN install.packages("tidyverse")
+RUN library(tidyverse)
+RUN install.packages("tidytext")
+RUN library(tidytext)
+RUN install.packages("stringi")
+RUN library("stringi")
+RUN install.packages("stopwords")
+RUN library(stopwords)
