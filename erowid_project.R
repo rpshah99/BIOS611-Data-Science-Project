@@ -66,5 +66,15 @@ summary_word_counts_clean <- summary_word_counts_tibble %>%
   filter(summary_words != "had") %>%
   filter(summary_words != "these")
 
+top_words_DMT <- summary_word_counts_clean %>%
+  arrange(desc(Freq)) %>%
+  head(20)
 
+ggplot(top_words_DMT, aes(x = reorder(summary_words, Freq), y = Freq, size = Freq)) +
+  geom_point(color = "firebrick1", alpha = 0.7) +
+  coord_flip() +
+  labs(title = "Top Words Associated With DMT Trips",
+       x = "Word",
+       y = "Frequency") +
+  theme_grey()
 
