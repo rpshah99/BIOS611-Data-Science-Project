@@ -29,4 +29,42 @@ summary_words_counts <- sort(table(summary_words), decreasing = TRUE)
 
 summary_word_counts_tibble <- as.data.frame(summary_words_counts)
 
+summary_word_counts_clean <- summary_word_counts_tibble %>% 
+  filter(summary_words != "the") %>%
+  filter(summary_words != "and") %>%
+  filter(summary_words != "a") %>%
+  filter(summary_words != "to") %>%
+  filter(summary_words != "of") %>%
+  filter(summary_words != "they") %>%
+  filter(summary_words != "participant") %>%
+  filter(summary_words != "their") %>%
+  filter(summary_words != "with") %>%
+  filter(summary_words != "an") %>%
+  filter(summary_words != "by") %>%
+  filter(summary_words != "this") %>%
+  filter(summary_words != "that") %>%
+  filter(summary_words != "was") %>%
+  filter(summary_words != "after") %>%
+  filter(summary_words != "substance") %>%
+  filter(summary_words != "experienced") %>%
+  filter(summary_words != "but") %>%
+  filter(summary_words != "like") %>%
+  filter(summary_words != "them") %>%
+  filter(summary_words != "into") %>%
+  filter(summary_words != "were") %>%
+  filter(summary_words != "on") %>%
+  filter(summary_words != "for") %>%
+  filter(summary_words != "in") %>%
+  filter(summary_words != "as") %>%
+  filter(summary_words != "experience") %>%
+  filter(summary_words != "from") %>%
+  filter(summary_words != "it") %>%
+  filter(summary_words != "at") %>%
+  filter(summary_words != "or") %>%
+  filter(summary_words != "s") %>%
+  filter(summary_words != "then") %>%
+  filter(summary_words != "had") %>%
+  filter(summary_words != "these")
+
+
 
