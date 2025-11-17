@@ -17,4 +17,16 @@ joined_summaries_dose_counts <- joined_summaries_dose %>%
   group_by(amount) %>% 
   tally()
 
-cd
+clean_joined_summaries_dose <- na.omit(joined_summaries_dose)
+
+all_text_summary <- paste(clean_joined_summaries_dose$summary, collapse = " ")
+
+summary_words <- unlist(strsplit(tolower(all_text_summary), "\\W+"))
+
+summary_words <- summary_words[summary_words != ""]
+
+summary_words_counts <- sort(table(summary_words), decreasing = TRUE)
+
+summary_word_counts_tibble <- as.data.frame(summary_words_counts)
+
+
