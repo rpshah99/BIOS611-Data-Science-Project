@@ -11,7 +11,7 @@ joined_summaries_dose <- dose_data %>%
   filter(substance %in% c("DMT"))
 
 joined_summaries_dose <- joined_summaries_dose %>%
-  select(-X1, -index)
+  select(-index)
 
 joined_summaries_dose_counts <- joined_summaries_dose %>% 
   group_by(amount) %>% 
@@ -77,4 +77,76 @@ ggplot(top_words_DMT, aes(x = reorder(summary_words, Freq), y = Freq, size = Fre
        x = "Word",
        y = "Frequency") +
   theme_grey()
+
+heat_joined_summaries_dose <- clean_joined_summaries_dose %>%
+  select(-amount, -method, -experience_id, -...1)
+
+heat_all_text_summary <- paste(heat_joined_summaries_dose$summary, 
+                               collapse = " ")
+
+heat_summary_words <- unlist(strsplit(tolower(heat_all_text_summary), "\\W+"))
+
+heat_summary_words <- heat_summary_words[heat_summary_words != ""]
+
+heat_summary_words_counts <- sort(table(heat_summary_words), decreasing = TRUE)
+
+heat_summary_word_counts_tibble <- as.data.frame(heat_summary_words_counts)
+
+heat_summary_word_counts_clean <- heat_summary_word_counts_tibble %>% 
+  filter(heat_summary_words != "the") %>%
+  filter(heat_summary_words != "and") %>%
+  filter(heat_summary_words != "a") %>%
+  filter(heat_summary_words != "to") %>%
+  filter(heat_summary_words != "of") %>%
+  filter(heat_summary_words != "they") %>%
+  filter(heat_summary_words != "participant") %>%
+  filter(heat_summary_words != "their") %>%
+  filter(heat_summary_words != "with") %>%
+  filter(heat_summary_words != "an") %>%
+  filter(heat_summary_words != "by") %>%
+  filter(heat_summary_words != "this") %>%
+  filter(heat_summary_words != "that") %>%
+  filter(heat_summary_words != "was") %>%
+  filter(heat_summary_words != "after") %>%
+  filter(heat_summary_words != "substance") %>%
+  filter(heat_summary_words != "experienced") %>%
+  filter(heat_summary_words != "but") %>%
+  filter(heat_summary_words != "like") %>%
+  filter(heat_summary_words != "them") %>%
+  filter(heat_summary_words != "into") %>%
+  filter(heat_summary_words != "were") %>%
+  filter(heat_summary_words != "on") %>%
+  filter(heat_summary_words != "for") %>%
+  filter(heat_summary_words != "in") %>%
+  filter(heat_summary_words != "as") %>%
+  filter(heat_summary_words != "experience") %>%
+  filter(heat_summary_words != "from") %>%
+  filter(heat_summary_words != "it") %>%
+  filter(heat_summary_words != "at") %>%
+  filter(heat_summary_words != "or") %>%
+  filter(heat_summary_words != "s") %>%
+  filter(heat_summary_words != "then") %>%
+  filter(heat_summary_words != "had") %>%
+  filter(heat_summary_words != "these")
+
+heat_summary_word_counts_clean$substance <- "DMT"
+
+heat_top_words_DMT <- heat_summary_word_counts_clean %>%
+  arrange(desc(Freq)) %>%
+  head(20)
+
+heatmap_top_words <- heat_top_words_DMT %>%
+  filter(heat_summary_words %in% heat_top_words_DMT) %>%
+  mutate(
+    heat_summary_words = factor(heat_summary_words, levels = heat_top_words_DMT),
+    Freq = factor(Freq)
+  )
+
+ggplot(heat_top_words_DMT, aes(x = heat_summary_words, 
+                               y = Freq, fill = Freq)) +
+  geom_tile(color = "black") +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(x = "Word", y = "Frequency", fill = "Count") +
+  theme_grey() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
