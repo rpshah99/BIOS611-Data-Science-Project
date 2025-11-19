@@ -193,3 +193,32 @@ joined_summaries_substance_dose <- dose_data %>%
   inner_join(summaries, by = "experience_id", 
              relationship = "many-to-many") %>%
   group_by(substance)
+
+joined_summaries_substance_dose <- dose_data %>%
+  inner_join(summaries, by = "experience_id", 
+             relationship = "many-to-many") %>%
+  group_by(substance)
+
+clean_joined_summaries_substance <- na.omit(joined_summaries_substance_dose)
+
+clean_summaries_substance <- clean_joined_summaries_substance %>%
+  select(-experience_id, -...1, -index, -amount, -method)
+
+clean_summaries_substance_top <- clean_summaries_substance %>%
+  filter(substance %in% c("DMT", "Salvia divinorum", "Cannabis", "Alcohol"))
+
+summaries_substance_word_counts <- clean_summaries_substance_top %>%
+  mutate(word_count = str_count(summary, "\\S+"))
+
+summaries_substance_word_counts <- summaries_substance_word_counts %>%
+  select(-summary)
+
+ggplot(summaries_substance_word_counts, aes(x = substance, y = word_count, 
+                                            fill = substance)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.5, color = "black") +
+  labs(title = "Word Count by Substance",
+       x = "Substance",
+       y = "Word Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
