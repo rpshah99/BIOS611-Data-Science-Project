@@ -171,9 +171,10 @@ three_d_summaries_desc_dose <- plot_ly(
   y = ~amount,       
   z = ~word_count,      
   type = "scatter3d",
-  mode = "markers+lines",
+  mode = "markers",
   marker = list(size = 5, color = ~word_count, colorscale = "Viridis", 
-                showscale = TRUE)
+                showscale = TRUE, title = "Comparison of Increasing DMT
+                Dosage and Word Count of Trip Summaries")
 )
 
 summaries_method_word_counts <- summaries_method_word_counts %>%
