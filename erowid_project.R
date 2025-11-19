@@ -175,3 +175,21 @@ three_d_summaries_desc_dose <- plot_ly(
   marker = list(size = 5, color = ~word_count, colorscale = "Viridis", 
                 showscale = TRUE)
 )
+
+summaries_method_word_counts <- summaries_method_word_counts %>%
+  select(-summary)
+
+ggplot(summaries_method_word_counts, aes(x = method, y = word_count, 
+                                         fill = method)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.5, color = "black") +
+  labs(title = "Word Count of Summaries by Method",
+       x = "Method of Consumption",
+       y = "Word Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+joined_summaries_substance_dose <- dose_data %>%
+  inner_join(summaries, by = "experience_id", 
+             relationship = "many-to-many") %>%
+  group_by(substance)
