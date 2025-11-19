@@ -150,3 +150,28 @@ ggplot(heat_top_words_DMT, aes(x = heat_summary_words,
   theme_grey() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+clean_summaries_dose <- clean_joined_summaries_dose %>%
+  select(-experience_id, -...1, -substance, -method)
+
+desc_clean_summaries_dose <- clean_summaries_dose %>%
+  arrange(desc(amount))
+
+desc_summaries_dose <- desc_clean_summaries_dose %>%
+  filter(!grepl("^[A-Za-z]+$", amount))
+
+desc_summary_dose_counts <- desc_summaries_dose %>%
+  mutate(word_count = str_count(summary, "\\S+"))
+
+desc_summary_word_dose_counts <- desc_summary_dose_counts %>%
+  select(-summary)
+
+three_d_summaries_desc_dose <- plot_ly(
+  desc_summary_word_dose_counts,
+  x = ~substance,      
+  y = ~amount,       
+  z = ~word_count,      
+  type = "scatter3d",
+  mode = "markers+lines",
+  marker = list(size = 5, color = ~word_count, colorscale = "Viridis", 
+                showscale = TRUE)
+)
