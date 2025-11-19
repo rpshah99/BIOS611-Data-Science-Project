@@ -177,6 +177,12 @@ three_d_summaries_desc_dose <- plot_ly(
                 Dosage and Word Count of Trip Summaries")
 )
 
+clean_summaries_method <- clean_joined_summaries_dose %>%
+  select(-experience_id, -...1, -substance, -amount)
+
+summaries_method_word_counts <- clean_summaries_method %>%
+  mutate(word_count = str_count(summary, "\\S+"))
+
 summaries_method_word_counts <- summaries_method_word_counts %>%
   select(-summary)
 
