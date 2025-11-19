@@ -14,9 +14,50 @@ Does the experience change depending on how DMT was administered?
 
 Do the drug trips change as the DMT doses increase?
 
+Do the drug trips change based on the substance that was taken?
+
+The measurement that I'm using the answer these questions are the word count of
+the summaries from each drug trip.
+
 The first step that I'm taking is tidying my data that was scraped from the
 EROWID web page. This involves joining the summaries and doses data raw files.
-Next, the NAs were removed from the joined variable and was renamed "cleaned_joined
-_summaries_dose".
+This also includes removing the NAs from the file, cleaning the data set
+of punctuation, getting the word counts from the summaries, removing the stop
+words and putting them into a variable labeled "top words DMT."
+
+After cleaning the data set I put these top words into a bubble scatter plot
+that includes increasing bubbles based on the frequency of the word. This 
+plot is labeled "Top Words Associated with DMT Trips."
+
+The next step that I took was to tidy my data in order to make a heat map based 
+on the frequency of the words that appeared in DMT trips. I repeated the tidying
+steps I took in making the bubble scatter plot in order to make this heat map.
+This plot is a similar visualization of the bubble scatter plot but in the heat
+map format. I believe that the bubble scatter plot was a better visual 
+representation of the top words that are associated with DMT trips.
+
+After this, I want to ask the question if the dosage changes the summaries that
+are associated with DMT trips. First, I tidied the data by including the dosage
+of DMT that the participant took, removing punctuation and getting the word
+count of each summary associated with each dose. Then I plotted this in a 3D 
+scatter plot in order to see the differences between the dosage and the word 
+count.
+
+Next, I wanted to focus on if the method of consumption of DMT changes the word 
+count of the summaries. To do this, I first tidied the data in order to get
+a word count associated with each DMT trip remove the columns that didn't 
+include the method of consumption and the word count of the summaries. After 
+that I mapped this information on a box plot in order to compare the word
+count of the summaries of the DMT trips based on the method by which DMT
+was consumed.
+
+The last step I took was to ask if the drug trips changes based on what
+substance was taken and the substances that I focused on were alcohol,
+cannabis, DMT and Salvia divinorum. First I tidied the data in order to remove
+other substances and the columns that weren't associated with the drug trips 
+summaries. Then I found the word count for each summary associated with each
+drug trip and plotted them on a box plot.
+
+
 
 
