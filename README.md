@@ -1,4 +1,8 @@
 # BIOS611-Data-Science-Project
+
+docker build --platform=linux/amd64 . -t bios611
+docker run --platform=linux/amd64 -v $(pwd):/home/rstudio/work -p 8787:8787 -it bios611
+
 This is my data science project for my BIOS611 class. My goal in this project 
 is to answer several research questions associated with the EROWID data set.
 
