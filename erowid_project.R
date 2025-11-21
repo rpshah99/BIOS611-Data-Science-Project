@@ -1,4 +1,9 @@
 library(tidyverse)
+library(tidytext)
+library(stopwords)
+library(DBI)
+library(stringi)
+
 
 summaries <- readr::read_csv("summaries.csv")
 dose_data <- readr::read_csv("doses_data.csv")
@@ -64,7 +69,8 @@ summary_word_counts_clean <- summary_word_counts_tibble %>%
   filter(summary_words != "s") %>%
   filter(summary_words != "then") %>%
   filter(summary_words != "had") %>%
-  filter(summary_words != "these")
+  filter(summary_words != "these") %>%
+  filter(heat_summary_words != "began")
 
 top_words_DMT <- summary_word_counts_clean %>%
   arrange(desc(Freq)) %>%
@@ -91,6 +97,9 @@ heat_summary_words <- heat_summary_words[heat_summary_words != ""]
 heat_summary_words_counts <- sort(table(heat_summary_words), decreasing = TRUE)
 
 heat_summary_word_counts_tibble <- as.data.frame(heat_summary_words_counts)
+
+list_prepositions <- c(...)
+  filter(!(word %in% list_of_prepositions))
 
 heat_summary_word_counts_clean <- heat_summary_word_counts_tibble %>% 
   filter(heat_summary_words != "the") %>%
@@ -127,7 +136,12 @@ heat_summary_word_counts_clean <- heat_summary_word_counts_tibble %>%
   filter(heat_summary_words != "s") %>%
   filter(heat_summary_words != "then") %>%
   filter(heat_summary_words != "had") %>%
-  filter(heat_summary_words != "these")
+  filter(heat_summary_words != "these") %>%
+  filter(heat_summary_words != "about") %>%
+  filter(heat_summary_words != "upon") %>%
+  filter(heat_summary_words != "felt") %>%
+  filter(heat_summary_words != "during") %>%
+  filter(heat_summary_words != "began")
 
 heat_summary_word_counts_clean$substance <- "DMT"
 
@@ -143,10 +157,9 @@ heatmap_top_words <- heat_top_words_DMT %>%
   )
 
 ggplot(heat_top_words_DMT, aes(x = heat_summary_words, 
-                               y = Freq, fill = Freq)) +
-  geom_tile(color = "black") +
-  scale_fill_gradient(low = "white", high = "red") +
-  labs(x = "Word", y = "Frequency", fill = "Count") +
+                               y = Freq)) +
+  geom_bar(fill = "black", stat = "identity") +
+  labs(x = "Word", y = "Frequency") +
   theme_grey() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -229,3 +242,4 @@ ggplot(summaries_substance_word_counts, aes(x = substance, y = word_count,
        y = "Word Count") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
