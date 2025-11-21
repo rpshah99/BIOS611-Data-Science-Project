@@ -1,14 +1,18 @@
-RUN install.packages("tidyverse")
-RUN library(tidyverse)
-RUN install.packages("tidytext")
-RUN library(tidytext)
-RUN install.packages("stringi")
-RUN library(stringi)
-RUN install.packages("stopwords")
-RUN library(stopwords)
-RUN install.packages("DBI")
-RUN library(DBI)
-RUN install.packages("ggplot2")
-RUN library(ggplot2)
-RUN install.packages("plotly")
-RUN library(plotly)
+FROM rocker/verse:4.3.1
+
+USER root
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    git \
+    wget \
+    libfontconfig1-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    locales \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN R -e "install.packages(c('tidytext','stringi', 'stopwords', 'DBI', 'plotly'))"
