@@ -3,6 +3,7 @@ library(tidytext)
 library(stopwords)
 library(DBI)
 library(stringi)
+library(plotly)
 
 
 summaries <- readr::read_csv("summaries.csv")
@@ -98,8 +99,19 @@ heat_summary_words_counts <- sort(table(heat_summary_words), decreasing = TRUE)
 
 heat_summary_word_counts_tibble <- as.data.frame(heat_summary_words_counts)
 
-list_prepositions <- c(...)
-  filter(!(word %in% list_of_prepositions))
+list_prepositions <- c("aboard", "about", "above", "across", "after", "against",
+                       "along", "amid", "among", "anti", "around", "as", "at",
+                       "before", "behind", "below", "beneath", "beside",
+                       "besides", "between", "beyond", "but", "by", 
+                       "concerning", "considering", "despite", "down", "during",
+                       "except", "excepting", "excluding", "following", "for",
+                       "from", "in", "inside", "into", "like", "minus", "near",
+                       "of", "off", "on", "onto", "opposite", "outside", "over",
+                       "past", "per", "plus", "regarding", "round", "save",
+                       "since", "than", "through", "to", "toward", "towards",
+                       "under", "underneath", "unlike", "until", "up", "upon", 
+                       "versus", "via", "with", "within", "without")
+  filter(!(heat_summary_words %in% list_of_prepositions))
 
 heat_summary_word_counts_clean <- heat_summary_word_counts_tibble %>% 
   filter(heat_summary_words != "the") %>%
@@ -177,6 +189,8 @@ desc_summary_dose_counts <- desc_summaries_dose %>%
 
 desc_summary_word_dose_counts <- desc_summary_dose_counts %>%
   select(-summary)
+
+word_count_substance <- data.frame(c("word", "count", "substance"))
 
 three_d_summaries_desc_dose <- plot_ly(
   desc_summary_word_dose_counts,
