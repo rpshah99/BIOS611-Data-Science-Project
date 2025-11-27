@@ -18,7 +18,8 @@ Does the experience change depending on how DMT was administered?
 
 Do the drug trips change as the DMT doses increase?
 
-Do the drug trips change based on the substance that was taken?
+Is there a difference between the top words associated with DMT trips and 
+Salvia divinorum trips?
 
 The measurement that I'm using the answer these questions are the word count of
 the summaries from each drug trip.
@@ -55,13 +56,10 @@ that I mapped this information on a box plot in order to compare the word
 count of the summaries of the DMT trips based on the method by which DMT
 was consumed.
 
-The last step I took was to ask if the drug trips changes based on what
-substance was taken and the substances that I focused on were alcohol,
-cannabis, DMT and Salvia divinorum. First I tidied the data in order to remove
-other substances and the columns that weren't associated with the drug trips 
-summaries. Then I found the word count for each summary associated with each
-drug trip and plotted them on a box plot.
-
+The last step I took was to ask if the top words changed if someone took
+Salvia divinorum rather than DMT. I ran the same code that I did for DMT
+but I used it on the Salvia divinorum data set. I found that most of the top 
+words were similar but there were some words that differed.
 
 
 
