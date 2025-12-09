@@ -1,0 +1,9 @@
+![](plots/top_words_bubble_plot.png)
+![](plots/top_words_bar_plot.png)
+![](plots/dosage_scatter_plot_comparison.png)
+![](plots/consumption_method_box_plot.png)
+
+![](plots/top_words_bubble_plot_DMT.png)
+
+![](plots/top_words_bubble_plot_salvia.png)
+
